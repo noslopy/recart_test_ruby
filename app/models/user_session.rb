@@ -8,6 +8,10 @@ class UserSession < ApplicationRecord
   def calculate_usd_value
     currency_calculator = \
       CurrencyCalculator.new(from: shopify_shop.currency, to: 'USD', value: value)
-    self.value_usd = currency_calculator.calculate
+    Thread.new do
+      Rails.application.executor.wrap do
+        self.value_usd = currency_calculator.calculate
+      end
+    end
   end
 end
