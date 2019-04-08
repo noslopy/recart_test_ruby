@@ -12,5 +12,15 @@ ShopifyShop.create(domain: 'my-cool-shop.hu', currency: 'HUF')
 ShopifyShop.create(domain: 'my-fancy-shop.se', currency: 'SEK')
 
 ShopifyShop.all.each do |shop|
-  shop.user_sessions.create(value: 100, item_count: 3)
+  shop.user_sessions.create(
+    session_id: "asd#{Random.rand(1000)}ASD",
+    value: 100,
+    item_count: 3
+  )
 end
+
+ShopifyShop.first.user_sessions.create(
+  session_id: 'eeafa272cebfd4b22385bc4b645e762c',
+  value: 100,
+  item_count: 3
+)

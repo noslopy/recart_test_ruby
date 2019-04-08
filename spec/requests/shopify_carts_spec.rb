@@ -1,7 +1,7 @@
 describe "shopify_carts", :type => :request do
   it 'updates on received hooks' do
     params = {
-      "id": "1",
+      "id": "eeafa272cebfd4b22385bc4b645e762c",
       "token": "eeafa272cebfd4b22385bc4b645e762c",
       "line_items": [
         {
@@ -84,11 +84,15 @@ describe "shopify_carts", :type => :request do
     }
 
     headers = {
-      'topic': 'carts/update'
+      'topic': 'carts/update',
+      'domain': 'my-patriotic-shop.com',
+      'some-hash': 'asdASDasd'
     }
 
     post "/shopify/carts", params: params, headers: headers
 
-    expect(UserSession.find(1).value).to eq 59.97
+    expect(
+      UserSession.find_by(session_id: 'eeafa272cebfd4b22385bc4b645e762c').value
+    ).to eq 59.97
   end
 end

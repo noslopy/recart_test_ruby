@@ -6,7 +6,9 @@ class Shopify::CartsController < ApplicationController
   private
 
   def carts_update
-    session = UserSession.find_by(id: params[:id])
+    shop = ShopifyShop.find_or_create_by(domain: request.headers[:domain])
+    session = UserSession.find_by(session_id: params[:id], shopify_shop_id: shop.id)
+    session = shop.user_sessions.new(session_id: params[:id]) if session.nil?
     session.item_count = params[:line_items].first[:quantity]
     session.value = params[:line_items].first[:line_price]
     session.save

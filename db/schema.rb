@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2019_03_31_190858) do
   end
 
   create_table "user_sessions", force: :cascade do |t|
+    t.string "session_id"
     t.integer "shopify_shop_id"
     t.float "value", default: 0.0
     t.float "value_usd", default: 0.0

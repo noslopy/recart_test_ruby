@@ -8,6 +8,7 @@ class AddModels < ActiveRecord::Migration[5.2]
     end
 
     create_table :user_sessions do |t|
+      t.string :session_id
       t.integer :shopify_shop_id
       t.float :value, default: 0
       t.float :value_usd, default: 0
